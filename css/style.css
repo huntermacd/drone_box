@@ -1,0 +1,27 @@
+.wrapper {
+    margin: 0 auto;
+    width: 190px;
+}
+
+select {
+    width: 95px;
+    height: 70px;
+    border: none;
+    margin: 0 auto;
+    display: block;
+}
+
+.select_and_play {
+    display: static;
+}
+
+.stop {
+    display: none;
+}
+
+.control {
+    height: 70px;
+    width: 95px;
+    text-align: center;
+    margin: 10px auto;
+}

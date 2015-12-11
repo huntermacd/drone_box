@@ -17,9 +17,9 @@ note.a = 27.50;
 note.as = 29.14;
 note.b = 30.87;
 
-var low = 0;
-var mid = 0;
-var high = 0;
+var low = 220;
+var mid = 440;
+var high = 880;
 
 var play = document.getElementById("play");
 play.addEventListener("click", function(){playDrone(low, mid, high)}, true);
@@ -31,8 +31,12 @@ var select = document.getElementById("select");
 
 var options = select.getElementsByTagName('option');
 
+var select_and_play_container = document.getElementsByClassName('select_and_play')[0];
+var stop_container = document.getElementsByClassName('stop')[0];
+
 function playDrone(low, mid, high) {
-    play.disabled = true;
+    select_and_play_container.style.display = 'none';
+    stop_container.style.display = 'block';
     osc = context.createOscillator();
     osc2 = context.createOscillator();
     osc3 = context.createOscillator();
@@ -41,19 +45,20 @@ function playDrone(low, mid, high) {
     osc.type = 'sine';
     osc.connect(gainNode1);
     gainNode1.connect(context.destination);
-    osc.start();
+    osc.start(0);
 
     osc2.frequency.value = mid;
     osc2.connect(context.destination);
-    osc2.start();
+    osc2.start(0);
 
     osc3.frequency.value = high;
     osc3.connect(context.destination);
-    osc3.start();
+    osc3.start(0);
 }
 
 function stopDrone() {
-    play.disabled = false;
+    stop_container.style.display = 'none';
+    select_and_play_container.style.display = 'block';
     osc.stop();
     osc.disconnect();
 
@@ -71,7 +76,6 @@ function selectNote() {
             low = note[option.id] * 8;
             mid = note[option.id] * 16;
             high = note[option.id] * 32;
-            console.log(low, mid, high);
             return low, mid, high;
         }
     }
